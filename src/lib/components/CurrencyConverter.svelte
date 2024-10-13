@@ -3,6 +3,7 @@
 	import { fetchExchangeRates, updateAmounts } from '$lib/utils/currencyUtils';
 	import type { ConversionResult } from '$lib/types/currency';
 	import CurrencyInput from './CurrencyInput.svelte';
+	import LoadingOverlay from './LoadingOverlay.svelte';
 
 	export const TARGET_CURRENCY = 'EUR';
 	export const BASE_CURRENCIES = [
@@ -123,6 +124,8 @@
 	}
 </script>
 
+<LoadingOverlay loading={loading} />
+
 <main>
 	<div class="logo-container">
 		<img src="mastercard.svg" alt="Mastercard Logo" />
@@ -130,9 +133,7 @@
 	<div class="outer-container">
 		<div class="inner-container">
 			<h1>Currency Converter</h1>
-			{#if loading}
-				<p class="loading">Loading currency data...</p>
-			{:else if error}
+			{#if error}
 				<p class="error">{error}</p>
 			{:else}
 				<div class="grid">
@@ -147,10 +148,10 @@
 					{/each}
 				</div>
 				<p class="disclaimer">
-					<i
-						>This website uses official Mastercard currency rates, but is not affiliated with
-						Mastercard in any way. Last updated: {formattedLastUpdated}</i
-					>
+					<i>
+						This website uses official Mastercard currency rates, but is not affiliated with
+						Mastercard in any way. Last updated: {formattedLastUpdated}
+					</i>
 					<button on:click={handleRefreshClick} disabled={loading}>
 						<i>Click here to refresh rates.</i>
 					</button>
@@ -202,9 +203,6 @@
 		row-gap: 2rem;
 		column-gap: 2rem;
 		margin-bottom: 2rem;
-	}
-	.loading {
-		text-align: center;
 	}
 	.disclaimer {
 		font-size: 0.85rem;

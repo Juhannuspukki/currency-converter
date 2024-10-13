@@ -56,7 +56,7 @@
 		{#if rate !== null || currency === 'EUR'}
 			<input type="text" bind:value={inputValue} on:input={handleInput} on:blur={handleBlur} />
 		{:else}
-			No data available
+			No data
 		{/if}
 	</label>
 </div>
