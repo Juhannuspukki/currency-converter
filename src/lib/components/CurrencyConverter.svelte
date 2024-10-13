@@ -124,63 +124,77 @@
 </script>
 
 <main>
-	<div class="container">
-		<img src="mastercard.svg" alt="Mastercard Logo" width="50px" />
-		<h1>Currency Converter</h1>
-
-		{#if loading}
-			<p class="loading">Loading currency data...</p>
-		{:else if error}
-			<p class="error">{error}</p>
-		{:else}
-			<div class="grid">
-				{#each conversions as conversion}
-					<CurrencyInput
-						currency={conversion.currency}
-						amount={conversion.amount}
-						rate={conversion.rate}
-						flag={currencyFlags[conversion.currency]}
-						on:input={handleInputChange}
-					/>
-				{/each}
-			</div>
-			<p class="disclaimer">
-				<i
-					>This website uses official Mastercard currency rates, but is not affiliated with
-					Mastercard in any way. Last updated: {formattedLastUpdated}</i
-				>
-				<button on:click={handleRefreshClick} disabled={loading}>
-					<i>Click here to refresh rates.</i>
-				</button>
-			</p>
-		{/if}
+	<div class="logo-container">
+		<img src="mastercard.svg" alt="Mastercard Logo" />
 	</div>
+	<div class="outer-container">
+		<div class="inner-container">
+			<h1>Currency Converter</h1>
+			{#if loading}
+				<p class="loading">Loading currency data...</p>
+			{:else if error}
+				<p class="error">{error}</p>
+			{:else}
+				<div class="grid">
+					{#each conversions as conversion}
+						<CurrencyInput
+							currency={conversion.currency}
+							amount={conversion.amount}
+							rate={conversion.rate}
+							flag={currencyFlags[conversion.currency]}
+							on:input={handleInputChange}
+						/>
+					{/each}
+				</div>
+				<p class="disclaimer">
+					<i
+						>This website uses official Mastercard currency rates, but is not affiliated with
+						Mastercard in any way. Last updated: {formattedLastUpdated}</i
+					>
+					<button on:click={handleRefreshClick} disabled={loading}>
+						<i>Click here to refresh rates.</i>
+					</button>
+				</p>
+			{/if}
+		</div>
+	</div>
+	<div class="spacer"></div>
 </main>
 
 <style>
 	h1 {
 		text-align: center;
 		font-size: 2rem;
-		margin-bottom: 2rem;
+		margin: 0 0 2rem 0;
+		color: #ffffff;
+	}
+	p {
 		color: #ffffff;
 	}
 	main {
 		height: 100%;
+		display: grid;
+		grid-template-rows: minmax(0, 1fr) min-content minmax(0, 1fr);
+		grid-template-columns: 1f 1fr 1fr;
+		font-family: 'Nunito', sans-serif;
+	}
+	.outer-container {
+		padding: 0 1.5rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-family: 'Nunito', sans-serif;
 	}
-	.container {
-		padding: 0 1.5rem;
+	.inner-container {
 		max-width: 400px;
 	}
+	.logo-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 	img {
-		position: fixed;
-		top: 1rem;
-		left: 50%;
-		transform: translate(-50%, 0);
-		opacity: 1;
+		max-height: calc(100% - 5rem);
+		padding: 2.5rem;
 	}
 	.grid {
 		display: grid;
@@ -194,7 +208,7 @@
 	}
 	.disclaimer {
 		font-size: 0.85rem;
-		color: #767676;
+		color: #777777;
 	}
 	.error {
 		color: red;
