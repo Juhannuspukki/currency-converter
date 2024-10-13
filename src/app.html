@@ -5,7 +5,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="manifest" href="/manifest.json" />
-		<meta name="theme-color" content="#000000" />
 		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="%sveltekit.assets%/favicons/apple-touch-icon-57x57.png" />
 		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="%sveltekit.assets%/favicons/apple-touch-icon-114x114.png" />
 		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="%sveltekit.assets%/favicons/apple-touch-icon-72x72.png" />
@@ -23,12 +22,11 @@
 		%sveltekit.head%
 	</head>
 	<style>
-		html {
-			height: 100%;
-		}
-		body {
+		html, body {
 			margin: 0;
 			height: 100%;
+			background-color: #000000;
+			overflow: hidden;
 		}
 		/* nunito-regular - latin-ext */
 		@font-face {

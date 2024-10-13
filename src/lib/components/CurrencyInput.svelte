@@ -65,6 +65,7 @@
 	label {
 		display: grid;
 		grid-template-columns: 3.75rem 1fr;
+    color: #ffffff;
 	}
 	span {
 		padding: 0.2rem 0;
@@ -76,9 +77,10 @@
     padding: 0;
     font-size: 1rem;
     text-align: center;
-		color: #333333;
+		color: #ffffff;
+    background-color: transparent;
 		border: none;
-    border-bottom: 1px solid #333333;
+    border-bottom: 1px solid #ffffff;
     border-radius: 0;
 		font-family: 'Nunito', 'sans-serif';
 	}

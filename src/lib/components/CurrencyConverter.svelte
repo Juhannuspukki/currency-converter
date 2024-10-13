@@ -162,6 +162,7 @@
 		text-align: center;
 		font-size: 2rem;
 		margin-bottom: 2rem;
+		color: #ffffff;
 	}
 	main {
 		height: 100%;
@@ -176,7 +177,6 @@
 	}
 	img {
 		position: fixed;
-		z-index: -1;
 		top: 1rem;
 		left: 50%;
 		transform: translate(-50%, 0);
@@ -203,7 +203,7 @@
 		display: inline;
 		padding: 0;
 		background-color: transparent;
-		color: #767676;
+		color: #777777;
 		border: none;
 		cursor: pointer;
 		border-radius: 0.5rem;
