@@ -44,7 +44,6 @@
 	];
 	let loading: boolean = true;
 	let error: string | null = null;
-	let lastUpdated: string = 'Never';
 	let lastChanged: string = TARGET_CURRENCY;
 
 	function formatTimeDifference(timestamp: number): string {
@@ -61,6 +60,34 @@
 		return 'Just now.';
 	}
 
+	let formattedLastUpdated: string = 'Never';
+
+	function updateFormattedLastUpdated() {
+		if (typeof window !== 'undefined' && window.localStorage) {
+			const storedLastUpdated = localStorage.getItem('lastUpdated');
+			if (storedLastUpdated) {
+				formattedLastUpdated = formatTimeDifference(parseInt(storedLastUpdated));
+			} else {
+				formattedLastUpdated = 'Never';
+			}
+		}
+	}
+
+	let updateInterval: number;
+
+	onMount(() => {
+		// Start the update interval
+		updateInterval = setInterval(updateFormattedLastUpdated, 1000);
+
+		// Initial update of conversion rates
+		updateConversionRates();
+
+		// Clean up the interval when the component is destroyed
+		return () => {
+			clearInterval(updateInterval);
+		};
+	});
+
 	async function updateConversionRates(forceRefresh: boolean = false) {
 		loading = true;
 		error = null;
@@ -68,7 +95,7 @@
 		try {
 			const rates = await fetchExchangeRates(BASE_CURRENCIES, TARGET_CURRENCY, forceRefresh);
 			conversions = [{ currency: TARGET_CURRENCY, rate: 1, amount: 1 }, ...rates];
-			lastUpdated = localStorage.getItem('lastUpdated') ?? 'Never';
+			updateFormattedLastUpdated();
 			updateAmounts(TARGET_CURRENCY, 1, conversions);
 		} catch (err) {
 			console.error('Error fetching conversion rates:', err);
@@ -94,10 +121,6 @@
 	function handleRefreshClick() {
 		updateConversionRates(true);
 	}
-
-	onMount(async () => {
-		await updateConversionRates();
-	});
 </script>
 
 <main>
@@ -124,9 +147,7 @@
 			<p class="disclaimer">
 				<i
 					>This website uses official Mastercard currency rates, but is not affiliated with
-					Mastercard in any way. Last updated: {lastUpdated !== 'Never'
-						? formatTimeDifference(parseInt(lastUpdated))
-						: 'Never'}</i
+					Mastercard in any way. Last updated: {formattedLastUpdated}</i
 				>
 				<button on:click={handleRefreshClick} disabled={loading}>
 					<i>Click here to refresh rates.</i>

@@ -79,6 +79,7 @@
 		color: #333333;
 		border: none;
     border-bottom: 1px solid #333333;
+    border-radius: 0;
 		font-family: 'Nunito', 'sans-serif';
 	}
 </style>

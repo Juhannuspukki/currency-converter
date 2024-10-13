@@ -12,7 +12,6 @@ export async function fetchExchangeRates(baseCurrencies: string[], targetCurrenc
     baseCurrencies.map(async (currency) => {
       const cached = await getExchangeRate(currency, targetCurrency);
       if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
-        localStorage.setItem("lastUpdated", cached.timestamp.toString());
         return { currency, rate: cached.rate, amount: cached.rate };
       }
       return null;
@@ -41,6 +40,9 @@ async function fetchAllRates(currencies: string[], targetCurrency: string): Prom
   // Ensure data is always an array
   const dataArray = Array.isArray(data) ? data : [data];
 
+  const currentTimestamp = Date.now();
+  localStorage.setItem("lastUpdated", currentTimestamp.toString());
+
   // Update IndexedDB and return results
   return Promise.all(
     dataArray.map(async (item: any) => {
@@ -49,7 +51,7 @@ async function fetchAllRates(currencies: string[], targetCurrency: string): Prom
         baseCurrency: item.fromCurrency,
         targetCurrency: targetCurrency,
         rate: rate,
-        timestamp: Date.now()
+        timestamp: currentTimestamp
       });
       return { currency: item.fromCurrency, rate: rate, amount: rate };
     })
