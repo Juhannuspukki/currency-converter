@@ -68,7 +68,7 @@
   <style>
     span {
       display: inline-block;
-      width: 4rem;
+      width: 4.25rem;
     }
     input {
       width: 80px;
