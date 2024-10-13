@@ -102,7 +102,7 @@
 
 <main>
 	<div class="container">
-		<img src="mastercard.svg" alt="Mastercard Logo" width="100px" />
+		<img src="mastercard.svg" alt="Mastercard Logo" width="50px" />
 		<h1>Currency Converter</h1>
 
 		{#if loading}
@@ -150,8 +150,8 @@
 		font-family: 'Nunito', sans-serif;
 	}
 	.container {
-		padding: 0 1rem;
-		max-width: 500px;
+		padding: 0 1.5rem;
+		max-width: 400px;
 	}
 	img {
 		position: fixed;
@@ -164,7 +164,8 @@
 	.grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 1.5rem;
+		row-gap: 2rem;
+		column-gap: 2rem;
 		margin-bottom: 2rem;
 	}
 	.loading {
