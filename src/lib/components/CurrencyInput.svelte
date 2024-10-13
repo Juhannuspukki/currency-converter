@@ -66,13 +66,18 @@
   </div>
   
   <style>
+    label {
+      display: grid;
+      grid-template-columns: 4.25rem 1fr;
+    }
     span {
+      padding: 0.5rem 0;
       display: inline-block;
-      width: 4.25rem;
     }
     input {
-      width: 80px;
+      width: 100%;
       padding: 0.5rem;
+      color: #333333;
       border: 2px solid #dddddd;
       border-radius: 0.5rem;
       box-sizing: border-box;
