@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-app-cache-v1';
+const CACHE_NAME = 'my-app-cache-v2';
    const urlsToCache = [
      '/',
      '/manifest.json',
@@ -12,6 +12,20 @@ const CACHE_NAME = 'my-app-cache-v1';
     caches.open(CACHE_NAME)
       .then((cache) => cache.addAll(urlsToCache))
   );
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                    return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
+    );
 });
 
 self.addEventListener('fetch', (event) => {
