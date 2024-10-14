@@ -194,8 +194,8 @@
 		justify-content: center;
 	}
 	img {
-		max-height: calc(100% - 5rem);
-		padding: 2.5rem;
+		height: 50%;
+		max-height: 10rem;
 	}
 	.grid {
 		display: grid;
