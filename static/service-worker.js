@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-app-cache-v2';
+const CACHE_NAME = 'my-app-cache-v3';
    const urlsToCache = [
      '/',
      '/manifest.json',
@@ -15,6 +15,7 @@ const CACHE_NAME = 'my-app-cache-v2';
 });
 
 self.addEventListener('activate', (event) => {
+  console.log("Service worker activating.")
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
@@ -29,6 +30,17 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  console.log("Service worker fetching.")
+  if (event.request.url.includes('/api/convert')) {
+    // For API requests, bypass the cache and always go to network
+    return event.respondWith(
+      fetch(event.request.clone(), { cache: 'no-store' })
+        .catch(error => {
+          console.error('Fetch error in service worker:', error);
+          throw error;
+        })
+    );
+  }
     event.respondWith(
       caches.match(event.request)
         .then((response) => {
