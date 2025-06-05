@@ -210,7 +210,6 @@
 		align-items: center;
 		justify-content: center;
 		min-height: 3rem;
-
 	}
 	img {
 		height: 50%;
@@ -222,6 +221,25 @@
 		row-gap: 2rem;
 		column-gap: 2rem;
 		margin-bottom: 2rem;
+	}
+	@media screen and (orientation: landscape) and (max-height: 728px) {
+		.logo-container {
+			min-height: 0;
+		}
+		img{
+			display: none;
+		}
+
+		.inner-container {
+			max-width: 100%;
+		}
+		.grid {
+			grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+			row-gap: 1.5rem;
+		}
+		.disclaimer {
+			margin: 0;
+		}
 	}
 	.compact {
 		row-gap: 1rem;
