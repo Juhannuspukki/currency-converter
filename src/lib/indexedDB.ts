@@ -4,11 +4,11 @@ const DB_NAME = 'CurrencyConverterDB';
 const STORE_NAME = 'exchangeRates';
 const DB_VERSION = 1;
 
-interface ExchangeRate {
+export interface ExchangeRate {
   baseCurrency: string;
   targetCurrency: string;
   rate: number;
-  timestamp: number;
+  lastUpdated: string;
 }
 
 export async function openDB(): Promise<IDBDatabase> {

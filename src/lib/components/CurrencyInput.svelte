@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
+	import { formatDate } from '$lib/utils/currencyUtils';
 
 	export let currency: string;
 	export let flag: string;
+	export let lastUpdated: string | null;
 	export let amount: number | null;
 	export let rate: number | null = null;
+	export let showLastUpdated: boolean = false;
 
 	const dispatch = createEventDispatcher<{
 		input: { currency: string; value: number | null };
@@ -59,29 +62,36 @@
 			No data
 		{/if}
 	</label>
+	{#if showLastUpdated && lastUpdated}
+		<span class="last-updated">{formatDate(lastUpdated)}</span>
+	{/if}
 </div>
-
+		
 <style>
 	label {
 		display: grid;
 		grid-template-columns: 3.75rem 1fr;
-    color: #ffffff;
+		color: #ffffff;
 	}
 	span {
 		padding: 0.2rem 0;
-    font-size: 0.85rem;
+		font-size: 0.85rem;
 		display: inline-block;
+	}
+	.last-updated {
+		color: #bbbbbb;
+		font-size: 0.75rem;
 	}
 	input {
 		width: 100%;
-    padding: 0;
-    font-size: 1rem;
-    text-align: center;
+    	padding: 0;
+    	font-size: 1rem;
+    	text-align: center;
 		color: #ffffff;
-    background-color: transparent;
+    	background-color: transparent;
 		border: none;
-    border-bottom: 1px solid #ffffff;
-    border-radius: 0;
+   	 	border-bottom: 1px solid #ffffff;
+    	border-radius: 0;
 		font-family: 'Nunito', 'sans-serif';
 	}
 </style>
