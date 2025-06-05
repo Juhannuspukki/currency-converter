@@ -1,4 +1,4 @@
-# Mastercard Currency Converter
+# Currency Converter
 
 A responsive and user-friendly currency conversion web application that uses official Mastercard exchange rates. The application allows users to convert between multiple currencies with real-time rate updates. Implemented with Svelte.
 
